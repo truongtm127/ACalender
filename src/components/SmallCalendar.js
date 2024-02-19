@@ -51,6 +51,7 @@ export default function SmallCalendar() {
           )}
         </p>
         <div>
+
           <button onClick={handlePrevMonth}>
             <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
               chevron_left

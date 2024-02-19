@@ -29,6 +29,7 @@ export default function EventModal() {
       ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
       : labelsClasses[0]
   );
+  const [selectedFile, setSelectedFile] = useState(null); // Define selectedFile state
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -38,6 +39,7 @@ export default function EventModal() {
       label: selectedLabel,
       day: daySelected.valueOf(),
       id: selectedEvent ? selectedEvent.id : Date.now(),
+      file: selectedFile,
     };
     if (selectedEvent) {
       dispatchCalEvent({ type: "update", payload: calendarEvent });
@@ -46,6 +48,11 @@ export default function EventModal() {
     }
 
     setShowEventModal(false);
+  }
+
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    setSelectedFile(file);
   }
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
@@ -122,6 +129,17 @@ export default function EventModal() {
                 </span>
               ))}
             </div>
+            <label htmlFor="fileInput" className="cursor-pointer bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-white flex items-center gap-2">
+  <span className="material-icons-outlined text-white">attach_file</span>
+  <span>Upload</span>
+  <input
+    id="fileInput"
+    type="file"
+    name="file"
+    onChange={handleFileChange}
+    className="hidden"
+  />
+</label>
           </div>
         </div>
         <footer className="flex justify-end border-t p-3 mt-5">
